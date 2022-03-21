@@ -1,0 +1,65 @@
+#############
+## 文件信息 ##
+#############
+
+# 根目录
+root_path: "."
+# 实验名称
+exp_name: "0208"
+
+# 存之前训练的模型的路径
+model_dir: "./"
+
+# 之前一次训练的权重路径
+pretrained_model: 
+# 训练集
+train_list: "./data/train_list.txt"
+# 验证集
+val_list: "./data/val_list.txt"
+# 测试集
+test_list: "./data/test_list.txt"
+# 可视化的标签路径
+val_gt: "./data/ProcessData/visual"
+
+#############
+## 实验参数 ##
+#############
+
+# 骨架名称
+model_name: "UNet"
+# 骨架版本
+model_version: "v1"
+
+# 是否使用GPU
+use_gpu: False
+# 使用的GPU
+gpu_id: "0,1"
+
+
+# 批量大小
+batch_size: 4
+# 数据加载进程数
+num_workers: 1
+# 统一缩放图片像素到多大的方阵
+img_size: 512
+# 输入通道数
+input_bands: 3
+# 输出分类数
+num_class: 4
+# 损失函数 ["ce","DiceLoss","FocalLoss","CE_DiceLoss","LovaszSoftmax","bce"]
+loss_type: "ce"
+# 额外损失
+extra_loss: False
+# 基准学习率
+base_lr: 0.001
+# 训练轮数
+epoches: 3
+
+#############
+## 过程控制 ##
+#############
+
+# 每训练多少项进行一次保存
+save_iter: 2
+# 可视化输出结果
+val_visual: True

@@ -1,0 +1,7 @@
+/data/ProcessData
+/data/BlastsOnline
+/data/*.txt
+!/data/color_table.txt
+/exp(*)
+.idea
+__pycache__/
