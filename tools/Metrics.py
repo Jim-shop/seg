@@ -86,29 +86,19 @@ def GetAccuracyInfo(PredictPath: str, LabelPath: str, ImgSize: int, SavePath: st
     FWIoU = (freq[freq > 0] * IoU[freq > 0]).sum()
     F1Score = 2 * precision * recall / (precision + recall)
 
-    print("ConfutionMatrix:", confusionMatrix)
-    print("Precision:", precision)
-    print("Recall:", recall)
-    print("Overall Accuracy:", oA)
-    print("IoU:", IoU)
-    print("mIoU:", mIoU)
-    print("FWIoU:", FWIoU)
-    print("F1-Score:", F1Score)
+    msg = (
+        f"【准确率数据】\n"
+        f"混淆矩阵：\n{confusionMatrix}\n"
+        f"精度：\n{precision}\n"
+        f"召回：\n{recall}\n"
+        f"总体准确率：\n{oA}\n"
+        f"IoU：\n{IoU}\n"
+        f"mIoU:\n{mIoU}\n"
+        f"FWIoU：\n{FWIoU}\n"
+        f"F1-Score：\n{F1Score}\n"
+    )
+    print("\n"+msg+"\n")
     with open(f"{SavePath}/accuracy.txt", "w") as f:
-        f.writelines("ConfutionMatrix:\n")
-        f.writelines(str(confusionMatrix)+"\n")
-        f.writelines("Precision:\n")
-        f.writelines(str(precision)+"\n")
-        f.writelines("Recall:\n")
-        f.writelines(str(recall)+"\n")
-        f.writelines("Overall Accuracy:\n")
-        f.writelines(str(oA)+"\n")
-        f.writelines("IoU:\n")
-        f.writelines(str(IoU)+"\n")
-        f.writelines("mIoU:\n")
-        f.writelines(str(mIoU)+"\n")
-        f.writelines("FWIoU:\n")
-        f.writelines(str(FWIoU)+"\n")
-        f.writelines("F1-Score:\n")
-        f.writelines(str(F1Score)+"\n")
+        f.writelines(msg)
+
     return precision, recall, oA, IoU, mIoU, F1Score

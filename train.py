@@ -59,10 +59,10 @@ def eval(val_loader: DataLoader, model: torch.nn.Module, criterion: Callable, ep
         _, _, oA, IoU, _, F1Score = GetAccuracyInfo(
             val_visual_epoch_path,
             params["val_gt"],
-            params["num_class"],
-            val_visual_epoch_path
+            params["img_size"],
+            val_visual_epoch_path,
         )
-        val_loss = val_loss/batch_num
+        val_loss = val_loss / batch_num
     return IoU[1], oA, F1Score[1], val_loss  # 只评估一个维度
 
 
@@ -177,3 +177,18 @@ if __name__ == "__main__":
             if epoch % params["save_iter"] == 0:  # 保存
                 val_miou, val_acc, val_f1, val_loss = eval(
                     val_loader, model, criterion, epoch)
+                msg = (
+                    f"【第{epoch}轮】\n"
+                    f"学习率：{optimizer.param_groups[0]['lr']}\n"
+                    f"训练损失：{running_loss.item()/batch_num}\n"
+                    f"评估损失：{val_loss}\n"
+                    f"评估F1：{val_f1}\n"
+                    f"评估准确性：{val_acc}\n"
+                    f"评估mIoU：{val_miou}\n"
+                )
+                print(msg)
+                log.writelines(msg)
+                if val_miou > best_val_acc:
+                    torch.save(model.state_dict(), os.path.join(
+                        params["model_dir"], "valIoU_Best.pth"))
+                    best_val_acc = val_miou
