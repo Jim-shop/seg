@@ -1,4 +1,4 @@
-# seg
+# BlastSeg
 
 基于PyTorch的胚胎分割神经网络。
 
